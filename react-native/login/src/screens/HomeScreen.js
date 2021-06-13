@@ -11,7 +11,7 @@ export default class HomeScreen extends Component {
 
   loadUsers = () => {
     this.setState({ hasLoadedUsers: false, userLoadingErrorMessage: '' });
-    getUsers()
+    getUsers() // Pass False to test invalid auth token
       .then(res => this.setState({users: res.users, hasLoadedUsers: true}))
       .catch(this.handleUserLoadErr);
   };
