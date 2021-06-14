@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
 import { Button, View, Text } from 'react-native';
 import { createAccount } from '../api/mock';
+import { setToken } from '../api/token';
 
 const SignUpScreen = ({navigation}) => {
   const [errorMsg, setErrorMsg] = useState('');
   const createUser = () => {
     setErrorMsg('');
     createAccount('test@test.ca', 'password')
-      .then((val) => {
+      .then(async (res) => {
+        await setToken(res.auth_token);
         navigation.navigate('Home');
       })
-      .catch((err) => setErrorMsg(''));
+      .catch((err) => setErrorMsg(err.message));
   };
 
   return (

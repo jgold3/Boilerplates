@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Button, View, Text } from 'react-native';
 import { getUsers } from '../api/mock';
+import { setToken } from '../api/token';
 
 export default class HomeScreen extends Component {
   state = {
@@ -24,18 +25,37 @@ export default class HomeScreen extends Component {
     }
   };
 
+  logOut = async () => {
+    this.setState({hasLoadedUsers: false, users: []})
+    await setToken('');
+    this.props.navigation.navigate('Login');
+  };
+
   componentDidMount = () => {
-    this.loadUsers();
+    this.didFocusSubscription = this.props.navigation.addListener(
+      'didFocus', 
+      () => {
+        if (!this.state.hasLoadedUsers) {
+          this.loadUsers();
+        }
+      },
+    );
   };  
 
+  componentWillUnmount = () => {
+    this.didFocusSubscription.remove();
+  }
+
   render = () => {
+    const {users, userLoadErrMsg} = this.state;
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>HomeScreen</Text>
-        {this.state.users.map((user) => (
+        {users.map((user) => (
           <Text key={user.email}>{user.email}</Text>
         ))}
-        <Button title="Log out" onPress={() => this.props.navigation.navigate('Login')} />
+        {userLoadErrMsg ? (<Text>{userLoadErrMsg}</Text>) : null}
+        <Button title="Log out" onPress={this.logOut} />
       </View>
     );
   };

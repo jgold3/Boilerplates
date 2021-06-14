@@ -11,12 +11,12 @@ const AppNavigator = createStackNavigator(
       SignUp: SignUpScreen,
     },
     {
-      initialRouteName: 'Login',
+      initialRouteName: 'Home',
     },
 );
 
 const AppContainer = createAppContainer(AppNavigator);
 
-export default AppContainer;
+export default AppContainer; 
 
 
