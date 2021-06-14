@@ -40,12 +40,14 @@ export default EmailForm = ({ buttonText, onSubmit, children, onAuthentication }
                 style={styles.input}
                 onChangeText={(text) => setEmail(text)}
                 value={email}
+                placeholder="Email"
                 keyboardType="email-address"
             />
             <TextInput
                 style={styles.input}
                 onChangeText={(text) => setPassword(text)}
                 value={password}
+                placeholder="Password"
                 secureTextEntry
             />
             <TouchableOpacity onPress={submit}>

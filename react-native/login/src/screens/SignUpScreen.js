@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Button, View, Text } from 'react-native';
 import { createAccount } from '../api/mock';
-import EmailForm from '..'
+import EmailForm from '../forms/EmailForm'
 
 const SignUpScreen = ({navigation}) => {
   return (
